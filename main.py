@@ -6,6 +6,7 @@ from sys import exit
 from time import sleep
 from Enemies import Enemies, populate
 import math
+from sounds import sound, play
 enemies_array = []
 populate(enemies_array)
 
@@ -104,6 +105,7 @@ def draw_score():
     screen.blit(score_text, (score_block_x + 10, score_block_y + 10))
 
 def game_loop():
+    play('2')
     running = True
     global enemy_count, flag
     while running:
@@ -115,6 +117,7 @@ def game_loop():
             if event.type == SPAWNEVENT:
                 if (enemy_count<20):
                     enemy_count += 1
+                    sound('1')
             if event.type == TICKEVENT:
                 if (shield.get_lives() == 0):
                     #you died
@@ -143,6 +146,7 @@ def game_loop():
                         enemies_array[i].set_distance(current_enemy.distance - current_enemy.hit)
                         if (abs(current_enemy.get_distance() - shield.shield_distance)<0.0000001 and  abs(current_enemy.get_angle_pos()-shield.get_angle_pos())<0.3 and not enemies_array[i].get_taken_life()):
                             enemies_array[i].set_hit(-1)
+                            sound('2')
                             shield.add_score(abs(current_enemy.get_hit()))
                         elif (current_enemy.get_distance()<10):
                             shield.reduce_lives()
@@ -160,6 +164,7 @@ def game_loop():
 
 
 def start_screen():
+    play('3')
     while True:
         screen.fill((120, 100, 100)) #main background
 
