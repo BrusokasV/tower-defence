@@ -31,10 +31,11 @@ class Enemies(Entity):
 
 def spawn_enemy():
         spawn_distance = 500
-        choice = [3, 5, 6]
+        choice = [2, 5]
         position = random.randint(0, 100)  # You can define how position works
         new_enemy = Enemies((spawn_distance*math.sin((2*math.pi/100)*position), spawn_distance*math.cos((2*math.pi/100)*position)))  # Create a new enemy with a random position
-        new_enemy.hit = choice[random.randint(0, 2)]  # Set the hit value (1-10)
+        new_enemy.hit = choice[random.randint(0, 1)]  # Set the hit value (1-10)
+        #new_enemy.hit = 3
         return(new_enemy)
 
 # Populate enemies with a pause between spawning

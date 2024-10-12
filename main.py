@@ -18,11 +18,12 @@ dimension_x = 1000
 dimension_y = 750
 x = 0
 y = 0
+shield_radius = 90
 screen = pygame.display.set_mode((dimension_x, dimension_y))
 pygame.display.set_caption("Protect the Pumpkin")
 
 
-shield = Shield((50, 50))
+shield = Shield((50, 50), shield_radius)
 #cursor img
 img = pygame.transform.scale(pygame.image.load("cursor.png"), (50, 50))
 img.convert()
@@ -64,7 +65,6 @@ pumpkin_img = pygame.transform.scale(pumpkin_img, (80, 80))
 
 #locations
 pumpkin_pos = [dimension_x // 2, dimension_y // 2]
-shield_radius = 55
 shield_color = (255, 255, 255)
 
 #lives
@@ -154,10 +154,6 @@ def game_loop():
                         print("return")
                 # img = pygame.transform.rotate()
                 screen.blit(img, (x_shield, y_shield))
-                print("Score: ", shield.get_score())
-                if (flag):
-                    # show you lose screen
-                    pass
             pygame.display.update()
 
 

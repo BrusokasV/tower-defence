@@ -6,9 +6,10 @@ class Shield(Entity):
     lives = 3
     shield_distance = 50
     
-    def __init__(self, position):
+    def __init__(self, position, radius):
         super().__init__(position)
         self.distance = 1
+        self.shield_distance = radius
         
     
     def reduce_lives(self):
