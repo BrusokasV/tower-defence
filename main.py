@@ -46,11 +46,12 @@ while True:
                     flag = True
                 if (abs(current_enemy.get_distance() - shield.shield_distance)<1 and  abs(current_enemy.get_angle_pos()-shield.get_angle_pos())<1):
                     enemies_array[i].set_hit(-1)
-                    print("Hit")
+                    shield.add_score(abs(current_enemy.get_hit()))
                 x_enemy, y_enemy = current_enemy.get_position()
                 screen.blit(img, (x_enemy + (dimension_x/2) - 25, y_enemy + (dimension_y/2) - 25))
-            
+            #img = pygame.transform.rotate()
             screen.blit(img, (x_shield, y_shield ))
+            print("Score: ", shield.get_score())
             if (flag):
                 #show you lose screen
                 pass
