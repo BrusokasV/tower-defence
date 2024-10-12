@@ -4,7 +4,8 @@ class User(Entity):
     lives = 3
     
     def __init__(self, position):
-        super(Entity, self).__init__(position, 1)
+        super(Entity, self).__init__(position)
+        self.distance = 1
         
     
     def reduce_lives(self):

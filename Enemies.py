@@ -1,7 +1,8 @@
 import Entity
 class Enemies(Entity):
     
-    def __init__(self,position, distance, hit):
-        super(Entity, self).__init__(position, distance)
-        self.hit = hit
-    
+    def __init__(self,position):
+        super(Entity, self).__init__(position)
+        self.hit = 0
+        
+        
