@@ -1,22 +1,26 @@
 import pygame
-import User
+from pygame.locals import *
+from shield import Shield
 from sys import exit
 
 pygame.init()
 dimension_x = 1000
 dimension_y = 750
 screen = pygame.display.set_mode((dimension_x, dimension_y))
-user = User((0, 0))
+shield = Shield((0, 0), (dimension_x/2, dimension_y/2))
 img = pygame.image.load("cursor.png")
+img.convert()
 
-running = True
-
-while running:
-    user.update_position(pygame.mouse.get_pos())
+while True:
+    
 
     screen.fill((255, 255, 255))
-    screen.blit(img, user.get_position())
+    
 
-    for event in pygame.event.get():  
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEMOTION:
+            shield.update_position(pygame.mouse.get_pos())
+            screen.blit(img, shield.get_position())
+            pygame.display.update()
         if event.type == pygame.QUIT:  
            exit()
