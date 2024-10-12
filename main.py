@@ -14,10 +14,8 @@ img.convert()
 
 while True:
     
-
     screen.fill((255, 255, 255))
     
-
     for event in pygame.event.get():
         if event.type == pygame.MOUSEMOTION:
             shield.update_position(pygame.mouse.get_pos())
