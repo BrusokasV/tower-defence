@@ -135,13 +135,13 @@ def game_loop():
                 y = pygame.mouse.get_pos()[1] - (dimension_y / 2)
                 shield.update_position((x, y))
                 x_shield, y_shield = shield.get_position()
-                x_shield += (dimension_x / 2) - 25
-                y_shield += (dimension_y / 2) - 25
+                x_shield += (dimension_x / 2)
+                y_shield += (dimension_y / 2)
                 for i in range(0, enemy_count):
                     if (not enemies_array[i].get_taken_life()):
                         current_enemy = enemies_array[i]
                         enemies_array[i].set_distance(current_enemy.distance - current_enemy.hit)
-                        if (abs(current_enemy.get_distance() - shield.shield_distance)<0.0000001 and  abs(current_enemy.get_angle_pos()-shield.get_angle_pos())<1 and not enemies_array[i].get_taken_life()):
+                        if (abs(current_enemy.get_distance() - shield.shield_distance)<0.0000001 and  abs(current_enemy.get_angle_pos()-shield.get_angle_pos())<0.3 and not enemies_array[i].get_taken_life()):
                             enemies_array[i].set_hit(-1)
                             shield.add_score(abs(current_enemy.get_hit()))
                         elif (current_enemy.get_distance()<10):
@@ -152,8 +152,10 @@ def game_loop():
                     if (enemies_array[i].get_hit()<0 and enemies_array[i].get_distance()>700):
                         enemies_array[i].set_hit(-1)
                         print("return")
-                # img = pygame.transform.rotate()
-                screen.blit(img, (x_shield, y_shield))
+                
+                cursor = img.copy()
+                cursor = pygame.transform.rotate(cursor, shield.angle_position*180/math.pi)
+                screen.blit(cursor, (x_shield - cursor.get_width()/2, y_shield - cursor.get_height()/2))
             pygame.display.update()
 
 
