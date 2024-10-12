@@ -1,6 +1,7 @@
 import pygame
 import User
 from sys import exit
+enemies_array = [ ]
 
 pygame.init()
 dimension_x = 1000
