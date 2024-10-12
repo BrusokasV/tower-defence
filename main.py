@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from shield import Shield
 from sys import exit
+enemies_array = [ ]
 
 pygame.init()
 dimension_x = 1000
