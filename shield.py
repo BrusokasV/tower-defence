@@ -6,16 +6,23 @@ class Shield(Entity):
     lives = 3
     shield_distance = 50
     
-    def __init__(self, position):
+    def __init__(self, position, radius):
         super().__init__(position)
         self.distance = 1
+        self.shield_distance = radius
         
     
     def reduce_lives(self):
         self.lives-=1
+
+    def get_lives(self):
+        return self.lives
     
     def add_score(self, score):
         self.score+=score
+    
+    def get_score(self):
+        return self.score
 
     def get_position(self):
         return (self.shield_distance*math.sin(self.angle_position), self.shield_distance*math.cos(self.angle_position))
