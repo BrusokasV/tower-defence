@@ -1,5 +1,8 @@
+import math
 class User:
-    DISTANCE = 1 #for now
-    def __init__(self, angle_position):
-        self.angle_position = angle_position
-        self.distance = DISTANCE
+    
+    def __init__(self, x_pos, y_pos):
+        self.angle_position = math.atan2(x_pos,y_pos)/math.pi*180
+        self.distance = 1 #for now
+        
+    
