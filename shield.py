@@ -13,6 +13,9 @@ class Shield(Entity):
     
     def reduce_lives(self):
         self.lives-=1
+
+    def get_lives(self):
+        return self.lives
     
     def add_score(self, score):
         self.score+=score
