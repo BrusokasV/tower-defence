@@ -3,15 +3,16 @@ import User
 from sys import exit
 
 pygame.init()
-
-screen = pygame.display.set_mode((100, 50))
+dimension_x = 1000
+dimension_y = 750
+screen = pygame.display.set_mode((dimension_x, dimension_y))
 user = User((0, 0))
 img = pygame.image.load("cursor.png")
 
 running = True
 
 while running:
-    User.update_position(user, pygame.mouse.get_pos())
+    user.update_position(pygame.mouse.get_pos())
 
     screen.fill((255, 255, 255))
     screen.blit(img, user.get_position())
