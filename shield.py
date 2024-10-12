@@ -5,8 +5,8 @@ class Shield(Entity):
     score = 0
     lives = 3
     
-    def __init__(self, position, origin):
-        super().__init__(position, origin)
+    def __init__(self, position):
+        super().__init__(position)
         self.distance = 1
         
     
@@ -15,4 +15,3 @@ class Shield(Entity):
     
     def add_score(self, score):
         self.score+=score
-    
