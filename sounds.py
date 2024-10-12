@@ -17,18 +17,19 @@ print('x = exit')
 
 while True : 
     user_input = input('Command : ')
-    if user_input == '1' :
-        pygame.mixer.music.load('sounds/Dead Silence Soundtrack [ ezmp3.cc ].mp3') 
-        pygame.mixer.music.play()
-    if user_input == '2' :
-        pygame.mixer.music.load('sounds/Insidious Theme [ ezmp3.cc ].mp3') 
-        pygame.mixer.music.play()
-    if user_input == '3' :
-        pygame.mixer.music.load('sounds/John Carpenter - HALLOWEEN Theme [ ezmp3.cc ].mp3') 
-        pygame.mixer.music.play()
+    match user_input:
+        case '1' :
+            pygame.mixer.music.load('sounds/Dead Silence Soundtrack [ ezmp3.cc ].mp3') 
+            pygame.mixer.music.play()
+        case '2' :
+            pygame.mixer.music.load('sounds/Insidious Theme [ ezmp3.cc ].mp3') 
+            pygame.mixer.music.play()
+        case '3' :
+            pygame.mixer.music.load('sounds/John Carpenter - HALLOWEEN Theme [ ezmp3.cc ].mp3') 
+            pygame.mixer.music.play()
 
-    if user_input ==  'x':
-        sys.exit()
+        case 'x':
+            sys.exit()
 
 
     
