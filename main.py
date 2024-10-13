@@ -19,7 +19,7 @@ dimension_x = 1000
 dimension_y = 800
 x = 0
 y = 0
-shield_radius = 90
+shield_radius = 80
 screen = pygame.display.set_mode((dimension_x, dimension_y))
 pygame.display.set_caption("Gourd Guard")
 shield = Shield((50, 50), shield_radius)
