@@ -100,8 +100,8 @@ def draw_lives():
         heart_y = dimension_y - 60
 
         #frame for hearts
-        frame_rect = pygame.Rect(heart_x - 5, heart_y - 5, 50, 50)
-        pygame.draw.rect(screen, (0, 0, 0), frame_rect, 3)
+        # frame_rect = pygame.Rect(heart_x - 5, heart_y - 5, 50, 50)
+        # pygame.draw.rect(screen, (0, 0, 0), frame_rect, 3)
 
         #displaying the type of heart
         if i < remaining_lives:
@@ -123,12 +123,12 @@ def draw_score():
                      3)
 
     score_text = score_font.render(f"Score: {shield.get_score()}", True, (0, 0, 0))
-    screen.blit(score_text, (score_block_x + 10, score_block_y + 10))
+    screen.blit(score_text, (score_block_x + 10, score_block_y))
 
 def game_loop():
     play('1')
     running = True
-    global enemy_count, hearts
+    global enemy_count
     pumpkin_radius = 30
     while running:
 
@@ -237,11 +237,11 @@ def game_over_screen(hs_beat):
         if (not hs_beat):
             high_score_text = high_score_font.render(f"High score:{shield.get_high_score()}", True, (0, 0, 0))
             current_score_text = current_font.render(f"Current score:{shield.get_score()}", True, (0, 0, 0))
-            screen.blit(high_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, dimension_y // 3))
-            screen.blit(current_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, (dimension_y // 3) + 50))
+            screen.blit(high_score_text, (dimension_x // 2 - game_over_text.get_width() // 2 + 25, dimension_y // 3 + 10))
+            screen.blit(current_score_text, (dimension_x // 2 - game_over_text.get_width() // 2 + 25, (dimension_y // 3) + 60))
         else:
             new_hs_text = high_score_font.render(f"New High Score: {shield.get_score()}", True, (0, 0, 0))
-            screen.blit(new_hs_text, (dimension_x // 2 - game_over_text.get_width() // 2, 250))
+            screen.blit(new_hs_text, (dimension_x // 2 - game_over_text.get_width() // 2 - 25, 300))
 
         #restart btn
         button_font = pygame.font.Font("HalloweenNight.ttf", 32)
@@ -304,7 +304,7 @@ def start_screen():
         button_rect = pygame.Rect(dimension_x // 2 - 150, 400, 300, 75)
         pygame.draw.rect(screen, (255, 255, 255), button_rect)
         pygame.draw.rect(screen, (0, 0, 0), button_rect, 3)
-        screen.blit(button_text, (dimension_x // 2 - button_text.get_width() // 2, 425))
+        screen.blit(button_text, (dimension_x // 2 - button_text.get_width() // 2, 420))
 
         #handing events
         for event in pygame.event.get():
