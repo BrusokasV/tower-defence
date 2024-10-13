@@ -16,12 +16,12 @@ pygame.init()
 
 #set up the display
 dimension_x = 1000
-dimension_y = 750
+dimension_y = 1000
 x = 0
 y = 0
 shield_radius = 90
 screen = pygame.display.set_mode((dimension_x, dimension_y))
-pygame.display.set_caption("Protect the Pumpkin")
+pygame.display.set_caption("Gourd Guard")
 shield = Shield((50, 50), shield_radius)
 
 f = open("high-score.txt", "r")
@@ -29,11 +29,12 @@ shield.set_high_score(int(f.read()))
 f.close()
 
 #cursor img
-img = pygame.transform.scale(pygame.image.load("cursor.png"), (50, 50))
+img = pygame.transform.scale(pygame.image.load("shield.png"), (100, 100))
 img.convert()
 
 #ghost img
-ghost_img = pygame.transform.scale(pygame.image.load("ghost.png"), (50, 50))
+ghost_dim = 80
+ghost_img = pygame.transform.scale(pygame.image.load("ghost_white.png"), (ghost_dim, ghost_dim))
 ghost_img.convert()
 
 
@@ -45,7 +46,7 @@ enemy_count = 0
 
 
 # fonts
-title_font = pygame.font.SysFont(None, 72)
+title_font = pygame.font.Font("MidnightMinutes.ttf", 72)
 rules_font = pygame.font.SysFont(None, 50)
 description = pygame.font.SysFont(None, 36)
 button_font = pygame.font.SysFont(None, 36)
@@ -53,19 +54,20 @@ score_font = pygame.font.SysFont(None, 36)
 
 
 #main title
-title_text = title_font.render("Welcome to Pumpkin Guard!", True, (255, 255, 255))
-rules_title_main = title_font.render("Protect the Pumpkin!", True, (255, 255, 255))
+title_text = title_font.render("Gourd Guard", True, (255, 255, 255))
+rules_title_main = title_font.render("Guard the Pumpkin!", True, (255, 255, 255))
 
 
 #rule titles
-rules_title = rules_font.render("Rules:", True, (0, 0, 0))
+rules_title = rules_font.render("How to play:", True, (0, 0, 0))
 rules_text = description.render("Use your shield to repel ghosts by facing them and", True, (0, 0, 0))
-rules_text2 = description.render("blocking their attacks before they reach the pumpkin", True, (0, 0, 0))
+rules_text2 = description.render("blocking their attacks before they reach the pumpkin!", True, (0, 0, 0))
 button_text = button_font.render("Start Game!", True, (0, 0, 0))
 
 #pumpkin pic
-pumpkin_img = pygame.image.load('halloween-ghost-pumpkin.png')
-pumpkin_img = pygame.transform.scale(pumpkin_img, (80, 80))
+#pumpkin_img = pygame.image.load('halloween-ghost-pumpkin.png')
+pumpkin_img = pygame.image.load('pumpkin_pxl.png')
+pumpkin_img = pygame.transform.scale(pumpkin_img, (90, 90))
 
 #locations
 pumpkin_pos = [dimension_x // 2, dimension_y // 2]
@@ -80,7 +82,9 @@ broken_heart_img = pygame.transform.scale(broken_heart_img, (40, 40))
 #death pic
 death_img = pygame.image.load('death.png')
 death_img = pygame.transform.scale(death_img, (40, 40))
-
+#bg
+bg_img = pygame.image.load('graveyard.jpg')
+bg_img = pygame.transform.scale(bg_img, (dimension_x, dimension_x))
 
 
 
@@ -121,7 +125,7 @@ def draw_score():
     screen.blit(score_text, (score_block_x + 10, score_block_y + 10))
 
 def game_loop():
-    play('2')
+    play('1')
     running = True
     global enemy_count, hearts
     pumpkin_radius = 30
@@ -148,7 +152,8 @@ def game_loop():
                         game_over_screen(False)
                     break
 
-                screen.fill((120, 100, 100))
+                #screen.fill((120, 100, 100))
+                screen.blit(bg_img, (0, -(dimension_x - dimension_y)/2))
                 screen.blit(rules_title_main, (dimension_x // 2 - rules_title_main.get_width() // 2, 50))
                 pygame.draw.circle(screen, shield_color, pumpkin_pos, shield_radius, 2)
                 screen.blit(pumpkin_img, (pumpkin_pos[0] - pumpkin_img.get_width() // 2,
@@ -181,7 +186,7 @@ def game_loop():
                             enemies_array[i].set_taken_life(True)
 
 
-                        if (abs(current_enemy.get_distance() - shield.shield_distance)<0.0000001 and  abs(current_enemy.get_angle_pos()-shield.get_angle_pos())<0.3 and not enemies_array[i].get_taken_life()):
+                        if (abs(current_enemy.get_distance() - shield.shield_distance)<0.0000001 and abs(current_enemy.get_angle_pos()-shield.get_angle_pos())<0.5 and not enemies_array[i].get_taken_life()):
                             enemies_array[i].set_hit(-1)
                             sound('2')
                             shield.add_score(abs(current_enemy.get_hit()))
@@ -190,8 +195,8 @@ def game_loop():
                             current_enemy.set_taken_life(True)
 
                     x_enemy, y_enemy = current_enemy.get_position()
-                    screen.blit(ghost_img, (x_enemy + (dimension_x/2) - 25, y_enemy + (dimension_y/2) - 25))
-                    if (enemies_array[i].get_hit()<0 and enemies_array[i].get_distance()>(500 + 100*random.randint(2, 3))):
+                    screen.blit(ghost_img, (x_enemy + (dimension_x/2) - ghost_dim/2, y_enemy + (dimension_y/2) - ghost_dim/2))
+                    if (enemies_array[i].get_hit()<0 and enemies_array[i].get_distance()>(550 + 100*random.randint(2, 3))):
                         enemies_array[i].set_hit(-1)
                         print("return")
 
@@ -210,15 +215,16 @@ def game_over_screen(hs_beat):
     popup_y = (dimension_y // 2) - (popup_height // 2)
 
     while True:
-        screen.fill((120, 100, 100))
+        #screen.fill((120, 100, 100))
+        screen.blit(bg_img, (0, -(dimension_x - dimension_y)/2))
 
         #pop up window
         pygame.draw.rect(screen, (50, 50, 50), (popup_x, popup_y, popup_width, popup_height))
         pygame.draw.rect(screen, (255, 255, 255), (popup_x, popup_y, popup_width, popup_height), 3)
 
         #title
-        game_over_font = pygame.font.SysFont(None, 70)
-        game_over_text = game_over_font.render("Game Over!", True, (0, 0, 0))
+        game_over_font = pygame.font.Font("MidnightMinutes.ttf", 70)
+        game_over_text = game_over_font.render("Game Over!", True, (255, 255, 255))
         screen.blit(game_over_text, (dimension_x // 2 - game_over_text.get_width() // 2, 50))
 
         pygame.draw.rect(screen, (198, 89, 33), (popup_x, popup_y, popup_width, popup_height))
@@ -278,7 +284,8 @@ def reset_game():
 def start_screen():
     play('3')
     while True:
-        screen.fill((120, 100, 100)) #main background
+        #screen.fill((120, 100, 100)) #main background
+        screen.blit(bg_img, (0, -(dimension_x - dimension_y)/2))
 
         #title
         screen.blit(title_text, (dimension_x // 2 - title_text.get_width() // 2, 50))
