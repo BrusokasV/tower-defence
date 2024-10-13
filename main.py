@@ -5,7 +5,7 @@ from pygame.locals import *
 from shield import Shield
 from sys import exit
 from time import sleep
-from Enemies import Enemies, populate
+from Enemies import Enemies, populate, spawn_enemy
 import math
 from sounds import sound, play
 enemies_array = populate()
@@ -197,7 +197,7 @@ def game_loop():
                     x_enemy, y_enemy = current_enemy.get_position()
                     screen.blit(ghost_img, (x_enemy + (dimension_x/2) - ghost_dim/2, y_enemy + (dimension_y/2) - ghost_dim/2))
                     if (enemies_array[i].get_hit()<0 and enemies_array[i].get_distance()>(550 + 100*random.randint(2, 3))):
-                        enemies_array[i].set_hit(abs(enemies_array[i].get_hit()))
+                        enemies_array[i] = spawn_enemy(enemies_array[i].get_distance())
 
                 cursor = img.copy()
                 cursor = pygame.transform.rotate(cursor, shield.angle_position*180/math.pi)

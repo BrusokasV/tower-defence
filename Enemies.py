@@ -29,8 +29,7 @@ class Enemies(Entity):
 
 
 
-def spawn_enemy():
-        spawn_distance = 700
+def spawn_enemy(spawn_distance):
         choice = [2, 4, 5]
         position = random.randint(0, 100)  # You can define how position works
         new_enemy = Enemies((spawn_distance*math.sin((2*math.pi/100)*position), spawn_distance*math.cos((2*math.pi/100)*position)))  # Create a new enemy with a random position
@@ -46,7 +45,7 @@ def populate():
     enemies_array = [0]*max_enemies
     
     for i in range(0, max_enemies):
-        enemies_array[i] = spawn_enemy()
+        enemies_array[i] = spawn_enemy(700)
 
     return enemies_array
         
