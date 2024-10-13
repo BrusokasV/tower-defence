@@ -23,6 +23,9 @@ shield_radius = 90
 screen = pygame.display.set_mode((dimension_x, dimension_y))
 pygame.display.set_caption("Protect the Pumpkin")
 
+f = open("high-score.txt", "r")
+high_score = int(f.read())
+f.close()
 
 shield = Shield((50, 50), shield_radius)
 #cursor img
@@ -134,6 +137,10 @@ def game_loop():
                     sound('1')
             if event.type == TICKEVENT:
                 if (shield.get_lives() == 0):
+                    if (shield.get_score() > high_score):
+                        f = open("high-score.txt", "w")
+                        f.write(str(shield.get_score()))
+                        f.close()
                     print("Game Over!")
                     running = False
                     break
