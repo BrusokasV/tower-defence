@@ -188,7 +188,7 @@ def game_loop():
 
 
                         if (abs(current_enemy.get_distance() - shield.shield_distance)<(shield_dim/3 + ghost_dim/3) and abs(current_enemy.get_angle_pos()-shield.get_angle_pos())<0.45 and not enemies_array[i].get_taken_life()):
-                            enemies_array[i].set_hit(-1)
+                            enemies_array[i].set_hit(-abs(enemies_array[i].get_hit()))
                             sound('2')
                             shield.add_score(abs(current_enemy.get_hit()))
                         elif (current_enemy.get_distance()<10):
@@ -199,7 +199,6 @@ def game_loop():
                     screen.blit(ghost_img, (x_enemy + (dimension_x/2) - ghost_dim/2, y_enemy + (dimension_y/2) - ghost_dim/2))
                     if (enemies_array[i].get_hit()<0 and enemies_array[i].get_distance()>(550 + 100*random.randint(2, 3))):
                         enemies_array[i].set_hit(-1)
-                        print("return")
 
                 cursor = img.copy()
                 cursor = pygame.transform.rotate(cursor, shield.angle_position*180/math.pi)

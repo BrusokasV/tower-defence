@@ -11,7 +11,7 @@ class Enemies(Entity):
 
 
     def set_hit(self, mult):
-        self.hit*=mult
+        self.hit=mult
 
     def get_hit(self):
         return self.hit
