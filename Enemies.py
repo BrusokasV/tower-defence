@@ -39,10 +39,14 @@ def spawn_enemy():
         return(new_enemy)
 
 # Populate enemies with a pause between spawning
-def populate(enemies_array):
+def populate():
 
     max_enemies = 100  # Set maximum number of enemies to spawn
 
-    while len(enemies_array) < max_enemies:
-        enemies_array.append(spawn_enemy())
+    enemies_array = [0]*max_enemies
+    
+    for i in range(0, max_enemies):
+        enemies_array[i] = spawn_enemy()
+
+    return enemies_array
         

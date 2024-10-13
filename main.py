@@ -7,8 +7,7 @@ from time import sleep
 from Enemies import Enemies, populate
 import math
 from sounds import sound, play
-enemies_array = []
-populate(enemies_array)
+enemies_array = populate()
 
 
 # Initialize Pygame
@@ -42,7 +41,6 @@ TICKEVENT = pygame.USEREVENT + 2
 pygame.time.set_timer(SPAWNEVENT, 2000)
 pygame.time.set_timer(TICKEVENT, 10)
 enemy_count = 0
-flag = False
 
 
 # fonts
@@ -267,7 +265,10 @@ def game_over_screen():
 def reset_game():
     global enemy_count
     enemy_count = 0
+    global enemies_array 
+    enemies_array = populate()
     shield.reset_state()
+
 def start_screen():
     play('3')
     while True:
