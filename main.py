@@ -47,10 +47,10 @@ enemy_count = 0
 
 # fonts
 title_font = pygame.font.Font("MidnightMinutes.ttf", 72)
-rules_font = pygame.font.SysFont(None, 50)
-description = pygame.font.SysFont(None, 36)
-button_font = pygame.font.SysFont(None, 36)
-score_font = pygame.font.SysFont(None, 36)
+rules_font = pygame.font.Font("HalloweenNight.ttf", 50)
+description = pygame.font.Font("HalloweenNight.ttf", 36)
+button_font = pygame.font.Font("HalloweenNight.ttf", 36)
+score_font = pygame.font.Font("HalloweenNight.ttf", 36)
 
 
 #main title
@@ -228,33 +228,33 @@ def game_over_screen(hs_beat):
         screen.blit(game_over_text, (dimension_x // 2 - game_over_text.get_width() // 2, 50))
 
         pygame.draw.rect(screen, (198, 89, 33), (popup_x, popup_y, popup_width, popup_height))
-        pygame.draw.rect(screen, (255, 255, 255), (popup_x, popup_y, popup_width, popup_height), 3)
+        pygame.draw.rect(screen, (0, 0, 0), (popup_x, popup_y, popup_width, popup_height), 3)
 
         #description
-        high_score_font = pygame.font.SysFont(None, 50)
-        current_font = pygame.font.SysFont(None, 36)
+        high_score_font = pygame.font.Font("HalloweenNight.ttf", 50)
+        current_font = pygame.font.Font("HalloweenNight.ttf", 36)
         if (not hs_beat):
             high_score_text = high_score_font.render(f"High score:{shield.get_high_score()}", True, (0, 0, 0))
             current_score_text = current_font.render(f"Current score:{shield.get_score()}", True, (0, 0, 0))
-            screen.blit(high_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, 250))
-            screen.blit(current_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, 300))
+            screen.blit(high_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, dimension_y // 3))
+            screen.blit(current_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, (dimension_y // 3) + 50))
         else:
             new_hs_text = high_score_font.render(f"New High Score: {shield.get_score()}", True, (0, 0, 0))
             screen.blit(new_hs_text, (dimension_x // 2 - game_over_text.get_width() // 2, 250))
 
         #restart btn
-        button_font = pygame.font.SysFont(None, 36)
+        button_font = pygame.font.Font("HalloweenNight.ttf", 32)
         button_text = button_font.render("Try Again!", True, (255, 255, 255))
         button_rect = pygame.Rect(popup_x + 50, popup_y + 150, 120, 50)
         pygame.draw.rect(screen, (255, 0, 0), button_rect)
-        pygame.draw.rect(screen, (255, 255, 255), button_rect, 3)
+        pygame.draw.rect(screen, (0, 0, 0), button_rect, 3)
         screen.blit(button_text, (button_rect.x + (button_rect.width // 2 - button_text.get_width() // 2), button_rect.y + 10))
 
         #quit btn
         quit_text = button_font.render("Quit", True, (255, 255, 255))
         quit_rect = pygame.Rect(popup_x + popup_width - 170, popup_y + 150, 120, 50)
         pygame.draw.rect(screen, (255, 0, 0), quit_rect)
-        pygame.draw.rect(screen, (255, 255, 255), quit_rect, 3)
+        pygame.draw.rect(screen, (0, 0, 0), quit_rect, 3)
         screen.blit(quit_text, (quit_rect.x + (quit_rect.width // 2 - quit_text.get_width() // 2), quit_rect.y + 10))
 
         #functionality for buttons
