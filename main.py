@@ -29,7 +29,8 @@ shield.set_high_score(int(f.read()))
 f.close()
 
 #cursor img
-img = pygame.transform.scale(pygame.image.load("shield.png"), (100, 100))
+shield_dim = 70
+img = pygame.transform.scale(pygame.image.load("shield.png"), (shield_dim, shield_dim))
 img.convert()
 
 #ghost img
@@ -186,7 +187,7 @@ def game_loop():
                             enemies_array[i].set_taken_life(True)
 
 
-                        if (abs(current_enemy.get_distance() - shield.shield_distance)<0.0000001 and abs(current_enemy.get_angle_pos()-shield.get_angle_pos())<0.5 and not enemies_array[i].get_taken_life()):
+                        if (abs(current_enemy.get_distance() - shield.shield_distance)<(shield_dim/3 + ghost_dim/3) and abs(current_enemy.get_angle_pos()-shield.get_angle_pos())<0.45 and not enemies_array[i].get_taken_life()):
                             enemies_array[i].set_hit(-1)
                             sound('2')
                             shield.add_score(abs(current_enemy.get_hit()))
