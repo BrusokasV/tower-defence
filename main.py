@@ -30,12 +30,12 @@ f.close()
 
 #cursor img
 shield_dim = 70
-img = pygame.transform.scale(pygame.image.load("shield.png"), (shield_dim, shield_dim))
+img = pygame.transform.scale(pygame.image.load("sprites/shield.png"), (shield_dim, shield_dim))
 img.convert()
 
 #ghost img
 ghost_dim = 80
-ghost_img = pygame.transform.scale(pygame.image.load("ghost_white.png"), (ghost_dim, ghost_dim))
+ghost_img = pygame.transform.scale(pygame.image.load("sprites/ghost_white.png"), (ghost_dim, ghost_dim))
 ghost_img.convert()
 
 
@@ -47,11 +47,11 @@ enemy_count = 0
 
 
 # fonts
-title_font = pygame.font.Font("MidnightMinutes.ttf", 72)
-rules_font = pygame.font.Font("HalloweenNight.ttf", 50)
-description = pygame.font.Font("HalloweenNight.ttf", 36)
-button_font = pygame.font.Font("HalloweenNight.ttf", 36)
-score_font = pygame.font.Font("HalloweenNight.ttf", 36)
+title_font = pygame.font.Font("fonts/MidnightMinutes.ttf", 72)
+rules_font = pygame.font.Font("fonts/HalloweenNight.ttf", 50)
+description = pygame.font.Font("fonts/HalloweenNight.ttf", 36)
+button_font = pygame.font.Font("fonts/HalloweenNight.ttf", 36)
+score_font = pygame.font.Font("fonts/HalloweenNight.ttf", 36)
 
 
 #main title
@@ -67,7 +67,7 @@ button_text = button_font.render("Start Game!", True, (0, 0, 0))
 
 #pumpkin pic
 #pumpkin_img = pygame.image.load('halloween-ghost-pumpkin.png')
-pumpkin_img = pygame.image.load('pumpkin_pxl.png')
+pumpkin_img = pygame.image.load('sprites/pumpkin_pxl.png')
 pumpkin_img = pygame.transform.scale(pumpkin_img, (90, 90))
 
 #locations
@@ -75,16 +75,13 @@ pumpkin_pos = [dimension_x // 2, dimension_y // 2]
 shield_color = (255, 255, 255)
 
 #hearts pic
-heart_img = pygame.image.load('heart.png')
+heart_img = pygame.image.load('sprites/heart.png')
 heart_img = pygame.transform.scale(heart_img, (40, 40))
 #broken hearts pic
-broken_heart_img = pygame.image.load('broken-heart.png')
+broken_heart_img = pygame.image.load('sprites/broken-heart.png')
 broken_heart_img = pygame.transform.scale(broken_heart_img, (40, 40))
-#death pic
-death_img = pygame.image.load('death.png')
-death_img = pygame.transform.scale(death_img, (40, 40))
 #bg
-bg_img = pygame.image.load('graveyard.jpg')
+bg_img = pygame.image.load('sprites/graveyard.jpg')
 bg_img = pygame.transform.scale(bg_img, (dimension_x, dimension_x))
 
 
@@ -225,7 +222,7 @@ def game_over_screen(hs_beat):
         pygame.draw.rect(screen, (255, 255, 255), (popup_x, popup_y, popup_width, popup_height), 3)
 
         #title
-        game_over_font = pygame.font.Font("MidnightMinutes.ttf", 70)
+        game_over_font = pygame.font.Font("fonts/MidnightMinutes.ttf", 70)
         game_over_text = game_over_font.render("Game Over!", True, (255, 255, 255))
         screen.blit(game_over_text, (dimension_x // 2 - game_over_text.get_width() // 2, 50))
 
@@ -233,8 +230,8 @@ def game_over_screen(hs_beat):
         pygame.draw.rect(screen, (0, 0, 0), (popup_x, popup_y, popup_width, popup_height), 3)
 
         #description
-        high_score_font = pygame.font.Font("HalloweenNight.ttf", 50)
-        current_font = pygame.font.Font("HalloweenNight.ttf", 36)
+        high_score_font = pygame.font.Font("fonts/HalloweenNight.ttf", 50)
+        current_font = pygame.font.Font("fonts/HalloweenNight.ttf", 36)
         if (not hs_beat):
             high_score_text = high_score_font.render(f"High score:{shield.get_high_score()}", True, (0, 0, 0))
             current_score_text = current_font.render(f"Current score:{shield.get_score()}", True, (0, 0, 0))
@@ -245,7 +242,7 @@ def game_over_screen(hs_beat):
             screen.blit(new_hs_text, (dimension_x // 2 - game_over_text.get_width() // 2 - 25, 300))
 
         #restart btn
-        button_font = pygame.font.Font("HalloweenNight.ttf", 32)
+        button_font = pygame.font.Font("fonts/HalloweenNight.ttf", 32)
         button_text = button_font.render("Try Again!", True, (255, 255, 255))
         button_rect = pygame.Rect(popup_x + 50, popup_y + 150, 120, 50)
         pygame.draw.rect(screen, (255, 0, 0), button_rect)
