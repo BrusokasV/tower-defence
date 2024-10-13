@@ -14,9 +14,17 @@ print('2 = sounds/Insidious Theme [ ezmp3.cc ].mp3')
 print('3 = sounds/John Carpenter - HALLOWEEN Theme [ ezmp3.cc ].mp3')
 print('x = exit')
 
+def sound(user_input):
+    match user_input:
+        case '1' :
+            soundeffect = pygame.mixer.Sound("sounds/ghost_out.mp3")
+            soundeffect.play()
+        case '2' :
+            soundeffect = pygame.mixer.Sound("sounds/boing_sound.mp3")
+            soundeffect.play()
+    
 
-while True : 
-    user_input = input('Command : ')
+def play(user_input): 
     match user_input:
         case '1' :
             pygame.mixer.music.load('sounds/Dead Silence Soundtrack [ ezmp3.cc ].mp3') 
@@ -29,7 +37,7 @@ while True :
             pygame.mixer.music.play()
 
         case 'x':
-            sys.exit()
+            pygame.mixer.music.stop()
 
 
     
