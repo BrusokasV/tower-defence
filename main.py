@@ -41,12 +41,13 @@ enemy_count = 0
 flag = False
 
 
-# titles
+# fonts
 title_font = pygame.font.SysFont(None, 72)
 rules_font = pygame.font.SysFont(None, 50)
 description = pygame.font.SysFont(None, 36)
 button_font = pygame.font.SysFont(None, 36)
 score_font = pygame.font.SysFont(None, 36)
+
 
 #main title
 title_text = title_font.render("Welcome to Pumpkin Guard!", True, (255, 255, 255))
@@ -131,8 +132,9 @@ def game_loop():
                     enemy_count += 1
             if event.type == TICKEVENT:
                 if (shield.get_lives() == 0):
+                    shield.update_high_score()
                     print("Game Over!")
-                    running = False
+                    game_over_screen()
                     break
 
                 screen.fill((120, 100, 100))
@@ -180,13 +182,81 @@ def game_loop():
                     if (enemies_array[i].get_hit()<0 and enemies_array[i].get_distance()>700):
                         enemies_array[i].set_hit(-1)
                         print("return")
-                
+
                 cursor = img.copy()
                 cursor = pygame.transform.rotate(cursor, shield.angle_position*180/math.pi)
                 screen.blit(cursor, (x_shield - cursor.get_width()/2, y_shield - cursor.get_height()/2))
             pygame.display.update()
 
 
+
+
+def game_over_screen():
+    popup_width = 400
+    popup_height = 300
+    popup_x = (dimension_x // 2) - (popup_width // 2)
+    popup_y = (dimension_y // 2) - (popup_height // 2)
+
+    while True:
+        screen.fill((120, 100, 100))
+
+        #pop up window
+        pygame.draw.rect(screen, (50, 50, 50), (popup_x, popup_y, popup_width, popup_height))
+        pygame.draw.rect(screen, (255, 255, 255), (popup_x, popup_y, popup_width, popup_height), 3)
+
+        #title
+        game_over_font = pygame.font.SysFont(None, 70)
+        game_over_text = game_over_font.render("Game Over!", True, (0, 0, 0))
+        screen.blit(game_over_text, (dimension_x // 2 - game_over_text.get_width() // 2, 50))
+
+        pygame.draw.rect(screen, (198, 89, 33), (popup_x, popup_y, popup_width, popup_height))
+        pygame.draw.rect(screen, (255, 255, 255), (popup_x, popup_y, popup_width, popup_height), 3)
+
+        #description
+        highest_score_font = pygame.font.SysFont(None, 50)
+        current_font = pygame.font.SysFont(None, 36)
+
+        highest_score_text = highest_score_font.render(f"Highest score:{shield.get_high_score()}", True, (0, 0, 0))
+        current_score_text = current_font.render(f"Current score:{shield.get_score()}", True, (0, 0, 0))
+        screen.blit(highest_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, 250))
+        screen.blit(current_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, 300))
+
+        #restart btn
+        button_font = pygame.font.SysFont(None, 36)
+        button_text = button_font.render("Try Again!", True, (255, 255, 255))
+        button_rect = pygame.Rect(popup_x + 50, popup_y + 150, 120, 50)
+        pygame.draw.rect(screen, (255, 0, 0), button_rect)
+        pygame.draw.rect(screen, (255, 255, 255), button_rect, 3)
+        screen.blit(button_text, (button_rect.x + (button_rect.width // 2 - button_text.get_width() // 2), button_rect.y + 10))
+
+        #quit btn
+        quit_text = button_font.render("Quit", True, (255, 255, 255))
+        quit_rect = pygame.Rect(popup_x + popup_width - 170, popup_y + 150, 120, 50)
+        pygame.draw.rect(screen, (255, 0, 0), quit_rect)
+        pygame.draw.rect(screen, (255, 255, 255), quit_rect, 3)
+        screen.blit(quit_text, (quit_rect.x + (quit_rect.width // 2 - quit_text.get_width() // 2), quit_rect.y + 10))
+
+        #functionality for buttons
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if button_rect.collidepoint(event.pos):
+                    reset_game()
+                    return
+                if quit_rect.collidepoint(event.pos):
+                    pygame.quit()
+                    sys.exit()
+
+        pygame.display.flip()
+
+
+
+def reset_game():
+    global enemy_count
+    enemy_count = 0
+    shield.reset_state()
 def start_screen():
     while True:
         screen.fill((120, 100, 100)) #main background
