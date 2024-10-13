@@ -1,4 +1,5 @@
 import pygame
+import random
 import sys
 from pygame.locals import *
 from shield import Shield
@@ -21,12 +22,12 @@ y = 0
 shield_radius = 90
 screen = pygame.display.set_mode((dimension_x, dimension_y))
 pygame.display.set_caption("Protect the Pumpkin")
+shield = Shield((50, 50), shield_radius)
 
 f = open("high-score.txt", "r")
-high_score = int(f.read())
+shield.set_high_score(int(f.read()))
 f.close()
 
-shield = Shield((50, 50), shield_radius)
 #cursor img
 img = pygame.transform.scale(pygame.image.load("cursor.png"), (50, 50))
 img.convert()
@@ -136,13 +137,15 @@ def game_loop():
                     sound('1')
             if event.type == TICKEVENT:
                 if (shield.get_lives() == 0):
-                    shield.update_high_score()
-                    if (shield.get_score() > high_score):
+                    if (shield.get_score() > shield.get_high_score()):
+                        shield.update_high_score()
                         f = open("high-score.txt", "w")
                         f.write(str(shield.get_score()))
                         f.close()
-                    print("Game Over!")
-                    game_over_screen()
+                        game_over_screen(True)
+                    else:
+                        shield.update_high_score()
+                        game_over_screen(False)
                     break
 
                 screen.fill((120, 100, 100))
@@ -188,7 +191,7 @@ def game_loop():
 
                     x_enemy, y_enemy = current_enemy.get_position()
                     screen.blit(ghost_img, (x_enemy + (dimension_x/2) - 25, y_enemy + (dimension_y/2) - 25))
-                    if (enemies_array[i].get_hit()<0 and enemies_array[i].get_distance()>700):
+                    if (enemies_array[i].get_hit()<0 and enemies_array[i].get_distance()>(500 + 100*random.randint(2, 3))):
                         enemies_array[i].set_hit(-1)
                         print("return")
 
@@ -200,7 +203,7 @@ def game_loop():
 
 
 
-def game_over_screen():
+def game_over_screen(hs_beat):
     popup_width = 400
     popup_height = 300
     popup_x = (dimension_x // 2) - (popup_width // 2)
@@ -222,13 +225,16 @@ def game_over_screen():
         pygame.draw.rect(screen, (255, 255, 255), (popup_x, popup_y, popup_width, popup_height), 3)
 
         #description
-        highest_score_font = pygame.font.SysFont(None, 50)
+        high_score_font = pygame.font.SysFont(None, 50)
         current_font = pygame.font.SysFont(None, 36)
-
-        highest_score_text = highest_score_font.render(f"Highest score:{shield.get_high_score()}", True, (0, 0, 0))
-        current_score_text = current_font.render(f"Current score:{shield.get_score()}", True, (0, 0, 0))
-        screen.blit(highest_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, 250))
-        screen.blit(current_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, 300))
+        if (not hs_beat):
+            high_score_text = high_score_font.render(f"High score:{shield.get_high_score()}", True, (0, 0, 0))
+            current_score_text = current_font.render(f"Current score:{shield.get_score()}", True, (0, 0, 0))
+            screen.blit(high_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, 250))
+            screen.blit(current_score_text, (dimension_x // 2 - game_over_text.get_width() // 2, 300))
+        else:
+            new_hs_text = high_score_font.render(f"New High Score: {shield.get_score()}", True, (0, 0, 0))
+            screen.blit(new_hs_text, (dimension_x // 2 - game_over_text.get_width() // 2, 250))
 
         #restart btn
         button_font = pygame.font.SysFont(None, 36)

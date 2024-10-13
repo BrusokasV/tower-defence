@@ -31,9 +31,13 @@ class Shield(Entity):
     def reset_state(self):
         self.score = 0
         self.lives = 3
+
+    def set_high_score(self, high_score):
+        self.high_score = high_score
+
     def update_high_score(self):
-        if self.score > Shield.high_score:
-            Shield.high_score = self.score
+        if self.score > self.high_score:
+            self.high_score = self.score
 
     def get_high_score(self):
-        return Shield.high_score
+        return self.high_score
