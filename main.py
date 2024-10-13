@@ -61,8 +61,8 @@ rules_title_main = title_font.render("Guard the Pumpkin!", True, (255, 255, 255)
 
 #rule titles
 rules_title = rules_font.render("How to play:", True, (0, 0, 0))
-rules_text = description.render("Use your shield to repel ghosts by facing them and", True, (0, 0, 0))
-rules_text2 = description.render("blocking their attacks before they reach the pumpkin!", True, (0, 0, 0))
+rules_text = description.render("Use your mouse or trackpad to repel ghosts and", True, (0, 0, 0))
+rules_text2 = description.render("stop them from reaching the pumpkin!", True, (0, 0, 0))
 button_text = button_font.render("Start Game!", True, (0, 0, 0))
 
 #pumpkin pic
@@ -183,7 +183,6 @@ def game_loop():
 
                         if distance_from_pumpkin <= pumpkin_radius and not enemies_array[i].get_taken_life():
                             shield.reduce_lives()
-                            print(f"Hearts left: {shield.get_lives()}")
                             enemies_array[i].set_taken_life(True)
 
 
